@@ -1,124 +1,85 @@
-package org.geektimes.projects.user.sql;
+package org.geektimes.projects.framework.jdbc;
 
 import org.geektimes.projects.user.domain.User;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.sql.DataSource;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class DBConnectionManager { // JNDI Component
+/**
+ *
+ */
+public class DBConnectionManager {
 
-    private final Logger logger = Logger.getLogger(DBConnectionManager.class.getName());
+    private Connection connection;
 
-    @Resource(name = "jdbc/UserPlatformDB")
-    private DataSource dataSource;
-
-    @Resource(name = "bean/EntityManager")
-    private EntityManager entityManager;
-
-//    public Connection getConnection() {
-//        ComponentContext context = ComponentContext.getInstance();
-//        // 依赖查找
-//        DataSource dataSource = context.getComponent("jdbc/UserPlatformDB");
-//        Connection connection = null;
-//        try {
-//            connection = dataSource.getConnection();
-//        } catch (SQLException e) {
-//            logger.log(Level.SEVERE, e.getMessage());
-//        }
-//        if (connection != null) {
-//            logger.log(Level.INFO, "获取 JNDI 数据库连接成功！");
-//        }
-//        return connection;
-//    }
-
-    public EntityManager getEntityManager() {
-        logger.info("当前 EntityManager 实现类：" + entityManager.getClass().getName());
-        return entityManager;
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 
     public Connection getConnection() {
-        // 依赖查找
-        Connection connection = null;
-        try {
-            connection = dataSource.getConnection();
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
-        }
-        if (connection != null) {
-            logger.log(Level.INFO, "获取 JNDI 数据库连接成功！");
-        }
-        return connection;
+        return this.connection;
     }
-
-
-//    private Connection connection;
-//
-//    public void setConnection(Connection connection) {
-//        this.connection = connection;
-//    }
-//
-//    public Connection getConnection() {
-//        return this.connection;
-//    }
 
     public void releaseConnection() {
-//        if (this.connection != null) {
-//            try {
-//                this.connection.close();
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e.getCause());
-//            }
-//        }
+        if (this.connection != null) {
+            try {
+                this.connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e.getCause());
+            }
+        }
     }
 
-    public static final String DROP_USERS_TABLE_DDL_SQL = "DROP TABLE users";
+    public static final String DROP_USERS_TABLE_DDL_SQL = "DROP TABLE  users";
 
     public static final String CREATE_USERS_TABLE_DDL_SQL = "CREATE TABLE users(" +
             "id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
             "name VARCHAR(16) NOT NULL, " +
             "password VARCHAR(64) NOT NULL, " +
             "email VARCHAR(64) NOT NULL, " +
-            "phoneNumber VARCHAR(64) NOT NULL" +
+            "phone VARCHAR(64) NOT NULL" +
             ")";
 
-    public static final String INSERT_USER_DML_SQL = "INSERT INTO users(name,password,email,phoneNumber) VALUES " +
+    public static final String INSERT_USER_DML_SQL = "INSERT INTO users(name,password,email,phone) VALUES " +
             "('A','******','a@gmail.com','1') , " +
             "('B','******','b@gmail.com','2') , " +
             "('C','******','c@gmail.com','3') , " +
             "('D','******','d@gmail.com','4') , " +
             "('E','******','e@gmail.com','5')";
 
+    public static final String REGISTER_USER_DML_SQL = "INSERT INTO users(name,password,email,phone) VALUES(?,?,?,?)";
+
 
     public static void main(String[] args) throws Exception {
 //        通过 ClassLoader 加载 java.sql.DriverManager -> static 模块 {}
 //        DriverManager.setLogWriter(new PrintWriter(System.out));
 //
-//        Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+        Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 //        Driver driver = DriverManager.getDriver("jdbc:derby:/db/user-platform;create=true");
 //        Connection connection = driver.connect("jdbc:derby:/db/user-platform;create=true", new Properties());
 
-        String databaseURL = "jdbc:derby:/db/user-platform;create=true";
+        String databaseURL = "jdbc:derby:user-platform;create=true";
         Connection connection = DriverManager.getConnection(databaseURL);
 
         Statement statement = connection.createStatement();
         // 删除 users 表
-        System.out.println(statement.execute(DROP_USERS_TABLE_DDL_SQL)); // false
+//        System.out.println(statement.execute(DROP_USERS_TABLE_DDL_SQL)); // false
         // 创建 users 表
         System.out.println(statement.execute(CREATE_USERS_TABLE_DDL_SQL)); // false
         System.out.println(statement.executeUpdate(INSERT_USER_DML_SQL));  // 5
 
         // 执行查询语句（DML）
-        ResultSet resultSet = statement.executeQuery("SELECT id,name,password,email,phoneNumber FROM users");
+        ResultSet resultSet = statement.executeQuery("SELECT id,name,password,email,phone FROM users");
 
         // BeanInfo
         BeanInfo userBeanInfo = Introspector.getBeanInfo(User.class, Object.class);
@@ -201,5 +162,4 @@ public class DBConnectionManager { // JNDI Component
         typeMethodMappings.put(Long.class, "getLong");
         typeMethodMappings.put(String.class, "getString");
     }
-
 }
