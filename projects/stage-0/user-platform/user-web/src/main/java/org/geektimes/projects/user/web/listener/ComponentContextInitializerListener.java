@@ -1,7 +1,7 @@
 package org.geektimes.projects.user.web.listener;
 
 import org.geektimes.context.ComponentContext;
-<<<<<<< HEAD
+
 import org.geektimes.projects.user.management.Application;
 import org.geektimes.projects.user.sql.DBConnectionManager;
 
@@ -15,12 +15,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
-=======
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
->>>>>>> afc3a4cfeb96c33bf1c7f916dd9ef622c8e14d84
+
 
 /**
  * {@link ComponentContext} 初始化器
@@ -30,7 +29,7 @@ public class ComponentContextInitializerListener implements ServletContextListen
 
     private ServletContext servletContext;
 
-<<<<<<< HEAD
+
 
     /**
      * 注册MBean
@@ -50,17 +49,14 @@ public class ComponentContextInitializerListener implements ServletContextListen
             throw new RuntimeException("注册ApplicationMBean失败");
         }
     }
-=======
->>>>>>> afc3a4cfeb96c33bf1c7f916dd9ef622c8e14d84
+
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         this.servletContext = sce.getServletContext();
         ComponentContext context = new ComponentContext();
         context.init(servletContext);
-<<<<<<< HEAD
+
         registerMBean();
-=======
->>>>>>> afc3a4cfeb96c33bf1c7f916dd9ef622c8e14d84
     }
 
     @Override
@@ -68,8 +64,6 @@ public class ComponentContextInitializerListener implements ServletContextListen
 //        ComponentContext context = ComponentContext.getInstance();
 //        context.destroy();
     }
-
-<<<<<<< HEAD
 
     /**
      * 数据库初始化
@@ -115,6 +109,4 @@ public class ComponentContextInitializerListener implements ServletContextListen
         logger.info("加载数据库脚本: " + sqls);
         return sqls.split(";");
     }
-=======
->>>>>>> afc3a4cfeb96c33bf1c7f916dd9ef622c8e14d84
 }
