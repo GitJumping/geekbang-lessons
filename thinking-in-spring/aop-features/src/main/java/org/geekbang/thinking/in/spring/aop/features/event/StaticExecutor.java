@@ -14,41 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.geektimes.function;
+package org.geekbang.thinking.in.spring.aop.features.event;
 
-import java.util.function.Function;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 
 /**
- * A function interface for action with {@link Throwable}
- *
- * @see Function
- * @see Throwable
+ * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
+ * @since
  */
-@FunctionalInterface
-public interface ThrowableAction {
+public class StaticExecutor implements ApplicationEventPublisherAware {
 
-    /**
-     * Executes the action
-     *
-     * @throws Throwable if met with error
-     */
-    void execute() throws Throwable;
+    private ApplicationEventPublisher applicationEventPublisher;
 
-    /**
-     * Executes {@link ThrowableAction}
-     *
-     * @param action {@link ThrowableAction}
-     * @throws RuntimeException wrap {@link Exception} to {@link RuntimeException}
-     */
-    static void execute(ThrowableAction action) throws RuntimeException {
-        try {
-            action.execute();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    public void execute() {
+        System.out.println("Executing...");
+        applicationEventPublisher.publishEvent(new ExecutedEvent(this));
     }
-<<<<<<< HEAD
+
+    @Override
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        this.applicationEventPublisher = applicationEventPublisher;
+    }
 }
-=======
-}
->>>>>>> afc3a4cfeb96c33bf1c7f916dd9ef622c8e14d84

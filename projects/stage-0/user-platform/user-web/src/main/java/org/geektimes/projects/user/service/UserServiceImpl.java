@@ -1,10 +1,14 @@
 package org.geektimes.projects.user.service;
 
+<<<<<<< HEAD
 import org.geektimes.projects.framework.jdbc.DBConnectionManager;
 import org.geektimes.projects.user.domain.User;
 import org.geektimes.projects.user.repository.IUserRepository;
 import org.geektimes.projects.user.repository.impl.UserRepositoryImpl;
 
+=======
+import org.geektimes.projects.user.domain.User;
+>>>>>>> afc3a4cfeb96c33bf1c7f916dd9ef622c8e14d84
 import org.geektimes.projects.user.sql.LocalTransactional;
 
 import javax.annotation.Resource;
@@ -72,12 +76,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+<<<<<<< HEAD
     public void saveUser(User user) {
         IUserRepository userRepository = new UserRepositoryImpl(new DBConnectionManager());
         userRepository.saveUser(user);
     }
 
     @Override
+=======
+>>>>>>> afc3a4cfeb96c33bf1c7f916dd9ef622c8e14d84
     public User queryUserById(Long id) {
         return null;
     }

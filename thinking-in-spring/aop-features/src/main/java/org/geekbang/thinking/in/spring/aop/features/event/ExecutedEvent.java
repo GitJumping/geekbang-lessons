@@ -14,41 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.geektimes.function;
+package org.geekbang.thinking.in.spring.aop.features.event;
 
-import java.util.function.Function;
+import org.springframework.context.ApplicationEvent;
 
 /**
- * A function interface for action with {@link Throwable}
+ * 动作已执行的事件
  *
- * @see Function
- * @see Throwable
+ * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
+ * @since
  */
-@FunctionalInterface
-public interface ThrowableAction {
+public class ExecutedEvent extends ApplicationEvent {
 
     /**
-     * Executes the action
+     * Create a new {@code ApplicationEvent}.
      *
-     * @throws Throwable if met with error
+     * @param source the object on which the event initially occurred or with
+     *               which the event is associated (never {@code null})
      */
-    void execute() throws Throwable;
-
-    /**
-     * Executes {@link ThrowableAction}
-     *
-     * @param action {@link ThrowableAction}
-     * @throws RuntimeException wrap {@link Exception} to {@link RuntimeException}
-     */
-    static void execute(ThrowableAction action) throws RuntimeException {
-        try {
-            action.execute();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    public ExecutedEvent(Object source) {
+        super(source);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> afc3a4cfeb96c33bf1c7f916dd9ef622c8e14d84

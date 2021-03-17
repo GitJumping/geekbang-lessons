@@ -2,19 +2,32 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
     <display-name>geektime-java-task1</display-name>
 
+<<<<<<< HEAD
+=======
+    <!-- ServletContext 配置参数 -->
+>>>>>>> afc3a4cfeb96c33bf1c7f916dd9ef622c8e14d84
     <context-param>
         <param-name>application.name</param-name>
         <param-value>user-web</param-value>
     </context-param>
 
+<<<<<<< HEAD
     <listener>
         <listener-class>org.geektimes.projects.user.web.listener.ComponentContextInitializerListener</listener-class>
     </listener>
 
+=======
+    <!-- 请确保这个 Listener 放置在首位 -->
+    <listener>
+        <listener-class>org.geektimes.projects.user.web.listener.ComponentContextInitializerListener</listener-class>
+    </listener>
+    
+>>>>>>> afc3a4cfeb96c33bf1c7f916dd9ef622c8e14d84
     <listener>
         <listener-class>org.geektimes.projects.user.web.listener.TestingListener</listener-class>
     </listener>
 
+<<<<<<< HEAD
     <filter>
         <filter-name>CharsetEncodingFilter</filter-name>
         <filter-class>org.geektimes.projects.common.filter.CharsetEncodingFilter</filter-class>
@@ -32,6 +45,8 @@
         <dispatcher>INCLUDE</dispatcher>
         <dispatcher>ERROR</dispatcher>
     </filter-mapping>
+=======
+>>>>>>> afc3a4cfeb96c33bf1c7f916dd9ef622c8e14d84
     <servlet>
         <servlet-name>default</servlet-name>
         <servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
@@ -120,6 +135,7 @@
     </jsp-config>
 
 
+<<<<<<< HEAD
     <!--    <resource-ref>-->
     <!--        <description>DB Connection</description>-->
     <!--        <res-ref-name>jdbc/UserPlatformDB</res-ref-name>-->
@@ -138,4 +154,26 @@
     <!--            org.geektimes.projects.user.sql.DBConnectionManager-->
     <!--        </resource-env-ref-type>-->
     <!--    </resource-env-ref>-->
+=======
+<!--    <resource-ref>-->
+<!--        <description>DB Connection</description>-->
+<!--        &lt;!&ndash; JNDI javax.naming.Name &ndash;&gt;-->
+<!--        <res-ref-name>jdbc/UserPlatformDB</res-ref-name>-->
+<!--        <res-type>javax.sql.DataSource</res-type>-->
+<!--        <res-auth>Container</res-auth>-->
+<!--    </resource-ref>-->
+
+<!--    <resource-env-ref>-->
+<!--        <description>-->
+<!--            Object factory for DBConnectionManager instances.-->
+<!--        </description>-->
+<!--        <resource-env-ref-name>-->
+<!--            bean/DBConnectionManager-->
+<!--        </resource-env-ref-name>-->
+<!--        <resource-env-ref-type>-->
+<!--            org.geektimes.projects.user.sql.DBConnectionManager-->
+<!--        </resource-env-ref-type>-->
+<!--    </resource-env-ref>-->
+
+>>>>>>> afc3a4cfeb96c33bf1c7f916dd9ef622c8e14d84
 </web-app>

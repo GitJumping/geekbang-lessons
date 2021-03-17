@@ -14,41 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.geektimes.function;
-
-import java.util.function.Function;
+package org.geekbang.thinking.in.spring.aop.features.event;
 
 /**
- * A function interface for action with {@link Throwable}
- *
- * @see Function
- * @see Throwable
+ * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
+ * @since
  */
-@FunctionalInterface
-public interface ThrowableAction {
+public class Executor { // ClassFilter
 
-    /**
-     * Executes the action
-     *
-     * @throws Throwable if met with error
-     */
-    void execute() throws Throwable;
-
-    /**
-     * Executes {@link ThrowableAction}
-     *
-     * @param action {@link ThrowableAction}
-     * @throws RuntimeException wrap {@link Exception} to {@link RuntimeException}
-     */
-    static void execute(ThrowableAction action) throws RuntimeException {
-        try {
-            action.execute();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    public void execute() { // MethodMatcher: Join Point 方法（需要 Pointcut 来匹配）
+        System.out.println("Executing...");
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> afc3a4cfeb96c33bf1c7f916dd9ef622c8e14d84
