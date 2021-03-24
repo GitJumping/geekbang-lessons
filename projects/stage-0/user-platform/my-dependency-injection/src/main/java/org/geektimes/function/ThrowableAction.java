@@ -47,8 +47,4 @@ public interface ThrowableAction {
             throw new RuntimeException(e);
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> afc3a4cfeb96c33bf1c7f916dd9ef622c8e14d84
