@@ -6,10 +6,7 @@ import org.geektimes.projects.user.sql.DBConnectionManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-<<<<<<< HEAD
-=======
 import javax.servlet.ServletContext;
->>>>>>> afc3a4cfeb96c33bf1c7f916dd9ef622c8e14d84
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.util.logging.Logger;
@@ -27,19 +24,14 @@ public class TestingListener implements ServletContextListener {
         ComponentContext context = ComponentContext.getInstance();
         DBConnectionManager dbConnectionManager = context.getComponent("bean/DBConnectionManager");
         dbConnectionManager.getConnection();
-<<<<<<< HEAD
-=======
         testPropertyFromServletContext(sce.getServletContext());
         testPropertyFromJNDI(context);
->>>>>>> afc3a4cfeb96c33bf1c7f916dd9ef622c8e14d84
         testUser(dbConnectionManager.getEntityManager());
         logger.info("所有的 JNDI 组件名称：[");
         context.getComponentNames().forEach(logger::info);
         logger.info("]");
     }
 
-<<<<<<< HEAD
-=======
     private void testPropertyFromServletContext(ServletContext servletContext) {
         String propertyName = "application.name";
         logger.info("ServletContext Property[" + propertyName + "] : "
@@ -52,7 +44,6 @@ public class TestingListener implements ServletContextListener {
                 + context.lookupComponent(propertyName));
     }
 
->>>>>>> afc3a4cfeb96c33bf1c7f916dd9ef622c8e14d84
     private void testUser(EntityManager entityManager) {
         User user = new User();
         user.setName("小马哥");
