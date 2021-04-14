@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="GBK"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://java.sun.com/xml/ns/javaee"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
@@ -83,6 +83,16 @@ servlet 名字不能为default，否则报错
         <servlet-name>FrontControllerServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <filter>
+        <filter-name>HttpSessionFilter</filter-name>
+        <filter-class>org.geektimes.projects.user.web.filter.HttpSessionFilter</filter-class>
+        <init-param>
+            <!-- Filter ���� = FilterConfig -->
+            <param-name>javax.cache.CacheManager.uri</param-name>
+            <param-value>redis://127.0.0.1:6379/</param-value>
+        </init-param>
+    </filter>
 
     <filter>
         <filter-name>CharsetEncodingFilter</filter-name>
