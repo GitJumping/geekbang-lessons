@@ -4,8 +4,6 @@ import org.geektimes.projects.framework.jdbc.DBConnectionManager;
 import org.geektimes.projects.user.domain.User;
 import org.geektimes.projects.user.repository.IUserRepository;
 import org.geektimes.projects.user.repository.impl.UserRepositoryImpl;
-
-import org.geektimes.projects.user.domain.User;
 import org.geektimes.projects.user.sql.LocalTransactional;
 
 import javax.annotation.Resource;

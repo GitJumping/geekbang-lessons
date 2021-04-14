@@ -1,6 +1,6 @@
 package org.geektimes.rest.test;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;

@@ -61,14 +61,12 @@
             <artifactId>jackson-annotations</artifactId>
         </dependency>
 
+        <!-- Test -->
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>RELEASE</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
             <scope>compile</scope>
         </dependency>
-
-        <!-- Test -->
 
     </dependencies>
 
