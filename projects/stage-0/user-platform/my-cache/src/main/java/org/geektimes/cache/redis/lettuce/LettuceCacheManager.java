@@ -1,6 +1,6 @@
 package org.geektimes.cache.redis.lettuce;
 
-import com.doudou.cache.AbstractCacheManager;
+import org.geektimes.cache.AbstractCacheManager;
 import io.lettuce.core.RedisClient;
 
 import javax.cache.Cache;

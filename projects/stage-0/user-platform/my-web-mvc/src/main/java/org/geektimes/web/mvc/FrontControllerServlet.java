@@ -52,24 +52,47 @@ public class FrontControllerServlet extends HttpServlet {
      * 读取所有的 RestController 的注解元信息 @Path
      * 利用 ServiceLoader 技术（Java SPI）
      */
+//    private void initHandleMethods() {
+//        for (Controller controller : ServiceLoader.load(Controller.class)) {
+//            Class<?> controllerClass = controller.getClass();
+//            Path pathFromClass = controllerClass.getAnnotation(Path.class);
+//            String requestPath = pathFromClass.value();
+//            Method[] publicMethods = controllerClass.getMethods();
+//            // 处理方法支持的 HTTP 方法集合
+//            for (Method method : publicMethods) {
+//                Set<String> supportedHttpMethods = findSupportedHttpMethods(method);
+//                Path pathFromMethod = method.getAnnotation(Path.class);
+//                if (pathFromMethod != null) {
+//                    requestPath += pathFromMethod.value();
+//                }
+//                handleMethodInfoMapping.put(requestPath,
+//                        new HandlerMethodInfo(requestPath, method, supportedHttpMethods));
+//            }
+//            controllersMapping.put(requestPath, controller);
+//        }
+//    }
+
     private void initHandleMethods() {
         for (Controller controller : ServiceLoader.load(Controller.class)) {
             Class<?> controllerClass = controller.getClass();
             Path pathFromClass = controllerClass.getAnnotation(Path.class);
-            String requestPath = pathFromClass.value();
+            String classRequestPath = pathFromClass.value();
             Method[] publicMethods = controllerClass.getMethods();
             // 处理方法支持的 HTTP 方法集合
             for (Method method : publicMethods) {
+                String realRequestPath = "/".equals(classRequestPath) ? "" : classRequestPath;
                 Set<String> supportedHttpMethods = findSupportedHttpMethods(method);
                 Path pathFromMethod = method.getAnnotation(Path.class);
                 if (pathFromMethod != null) {
-                    requestPath += pathFromMethod.value();
+                    realRequestPath += pathFromMethod.value();
                 }
-                handleMethodInfoMapping.put(requestPath,
-                        new HandlerMethodInfo(requestPath, method, supportedHttpMethods));
+                handleMethodInfoMapping.put(realRequestPath,
+                        new HandlerMethodInfo(realRequestPath, method, supportedHttpMethods));
+                controllersMapping.put(realRequestPath, controller);
             }
-            controllersMapping.put(requestPath, controller);
         }
+
+        System.out.println("aa");
     }
 
     /**
@@ -103,6 +126,66 @@ public class FrontControllerServlet extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
+//    @Override
+//    public void service(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//        // 建立映射关系
+//        // requestURI = /a/hello/world
+//        String requestURI = request.getRequestURI();
+//        // contextPath  = /a or "/" or ""
+//        String servletContextPath = request.getContextPath();
+//        String prefixPath = servletContextPath;
+//        // 映射路径（子路径）
+//        String requestMappingPath = substringAfter(requestURI,
+//                StringUtils.replace(prefixPath, "//", "/"));
+//        // 映射到 Controller
+//        Controller controller = controllersMapping.get(requestMappingPath);
+//
+//        if (controller != null) {
+//
+//            HandlerMethodInfo handlerMethodInfo = handleMethodInfoMapping.get(requestMappingPath);
+//
+//            try {
+//                if (handlerMethodInfo != null) {
+//
+//                    String httpMethod = request.getMethod();
+//
+//                    if (!handlerMethodInfo.getSupportedHttpMethods().contains(httpMethod)) {
+//                        // HTTP 方法不支持
+//                        response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+//                        return;
+//                    }
+//
+//                    if (controller instanceof PageController) {
+//                        PageController pageController = PageController.class.cast(controller);
+//                        String viewPath = pageController.execute(request, response);
+//                        // 页面请求 forward
+//                        // request -> RequestDispatcher forward
+//                        // RequestDispatcher requestDispatcher = request.getRequestDispatcher(viewPath);
+//                        // ServletContext -> RequestDispatcher forward
+//                        // ServletContext -> RequestDispatcher 必须以 "/" 开头
+//                        ServletContext servletContext = request.getServletContext();
+//                        if (!viewPath.startsWith("/")) {
+//                            viewPath = "/" + viewPath;
+//                        }
+//                        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(viewPath);
+//                        requestDispatcher.forward(request, response);
+//                        return;
+//                    } else if (controller instanceof RestController) {
+//                        // TODO
+//                    }
+//
+//                }
+//            } catch (Throwable throwable) {
+//                if (throwable.getCause() instanceof IOException) {
+//                    throw (IOException) throwable.getCause();
+//                } else {
+//                    throw new ServletException(throwable.getCause());
+//                }
+//            }
+//        }
+//    }
+
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -111,29 +194,31 @@ public class FrontControllerServlet extends HttpServlet {
         String requestURI = request.getRequestURI();
         // contextPath  = /a or "/" or ""
         String servletContextPath = request.getContextPath();
-        String prefixPath = servletContextPath;
         // 映射路径（子路径）
         String requestMappingPath = substringAfter(requestURI,
-                StringUtils.replace(prefixPath, "//", "/"));
+                StringUtils.replace(servletContextPath, "//", "/"));
         // 映射到 Controller
         Controller controller = controllersMapping.get(requestMappingPath);
-
         if (controller != null) {
-
             HandlerMethodInfo handlerMethodInfo = handleMethodInfoMapping.get(requestMappingPath);
-
             try {
                 if (handlerMethodInfo != null) {
-
                     String httpMethod = request.getMethod();
-
                     if (!handlerMethodInfo.getSupportedHttpMethods().contains(httpMethod)) {
                         // HTTP 方法不支持
                         response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
                         return;
                     }
 
-                    if (controller instanceof PageController) {
+                    Method handlerMethod = handlerMethodInfo.getHandlerMethod();
+                    String viewPath = (String) handlerMethod.invoke(controller, request, response);
+                    ServletContext servletContext = request.getServletContext();
+                    if (!viewPath.startsWith("/")) {
+                        viewPath = "/" + viewPath;
+                    }
+                    RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(viewPath);
+                    requestDispatcher.forward(request, response);
+                    /*if (controller instanceof PageController) {
                         PageController pageController = PageController.class.cast(controller);
                         String viewPath = pageController.execute(request, response);
                         // 页面请求 forward
@@ -150,8 +235,7 @@ public class FrontControllerServlet extends HttpServlet {
                         return;
                     } else if (controller instanceof RestController) {
                         // TODO
-                    }
-
+                    }*/
                 }
             } catch (Throwable throwable) {
                 if (throwable.getCause() instanceof IOException) {
