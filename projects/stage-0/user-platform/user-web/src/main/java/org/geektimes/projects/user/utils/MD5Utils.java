@@ -1,4 +1,4 @@
-package com.doudou.user.utils;
+package org.geektimes.projects.user.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  *
  * @author huangxiaofeng
  */
-public class Md5Utils {
+public class MD5Utils {
 
     private static final Logger logger = Logger.getLogger(Md5Utils.class.getName());
 

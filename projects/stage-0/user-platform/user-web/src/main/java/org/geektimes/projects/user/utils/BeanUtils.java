@@ -1,4 +1,4 @@
-package com.doudou.user.utils;
+package org.geektimes.projects.user.utils;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;

@@ -1,4 +1,4 @@
-package com.doudou.user.utils;
+package org.geektimes.projects.user.utils;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
