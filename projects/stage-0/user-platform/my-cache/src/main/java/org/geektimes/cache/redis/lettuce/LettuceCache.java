@@ -25,7 +25,7 @@ public class LettuceCache<K extends Serializable, V extends Serializable> extend
                         Configuration<K, V> configuration, RedisClient redisClient) {
         super(cacheManager, cacheName, configuration);
         this.redisClient = redisClient;
-        RedisCodec<K, V> redisCodec = new DefaultRedisCodec<>();
+        RedisCodec<K, V> redisCodec = new DefaultRedisCodec<K, V>();
         this.connection = redisClient.connect(redisCodec);
         this.commands = connection.sync();
     }
