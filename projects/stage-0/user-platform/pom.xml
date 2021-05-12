@@ -12,6 +12,7 @@
 
     <modules>
         <module>my-web-mvc</module>
+        <module>user-web</module>
         <module>my-configuration</module>
         <module>my-dependency-injection</module>
         <module>my-rest-client</module>
@@ -19,7 +20,8 @@
         <module>my-cache</module>
         <module>my-interceptor</module>
         <module>user-data</module>
-        <module>user-web</module>
+        <module>my-commons</module>
+        <module>my-session</module>
     </modules>
 
     <properties>
@@ -59,6 +61,8 @@
         <tomcat8.version>8.0.42</tomcat8.version>
         <lettuce.version>6.1.0.RELEASE</lettuce.version>
         <jedis.version>3.5.2</jedis.version>
+        <mybatis.version>3.5.7</mybatis.version>
+        <mybatis-spring.version>2.0.6</mybatis-spring.version>
 
         <!-- Spring 依赖版本 -->
         <spring-boot.version>2.4.5</spring-boot.version>
@@ -267,6 +271,19 @@
                 <groupId>org.apache.activemq</groupId>
                 <artifactId>activemq-all</artifactId>
                 <version>${activemq.version}</version>
+            </dependency>
+
+            <!-- MyBatis -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis-spring.version}</version>
             </dependency>
 
             <!-- Apache Tomcat -->

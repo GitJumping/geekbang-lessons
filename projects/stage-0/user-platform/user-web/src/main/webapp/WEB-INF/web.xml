@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="GBK"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://java.sun.com/xml/ns/javaee"
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
          http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          metadata-complete="true"
@@ -8,7 +8,7 @@
          version="3.0">
     <display-name>geektime-java-task1</display-name>
 
-    <!-- ServletContext é…ç½®å‚æ•° -->
+    <!-- ServletContext ÅäÖÃ²ÎÊı -->
     <context-param>
         <param-name>application.name</param-name>
         <param-value>user-web</param-value>
@@ -21,7 +21,7 @@
         <listener-class>org.geektimes.configuration.microprofile.config.source.servlet.ServletContextConfigInitializer</listener-class>
     </listener>
     -->
-    <!-- è¯·ç¡®ä¿è¿™ä¸ª Listener æ”¾ç½®åœ¨é¦–ä½ -->
+    <!-- ÇëÈ·±£Õâ¸ö Listener ·ÅÖÃÔÚÊ×Î» -->
     <listener>
         <listener-class>org.geektimes.projects.user.web.listener.ComponentContextInitializerListener</listener-class>
     </listener>
@@ -33,7 +33,7 @@
 java.util.concurrent.ExecutionException: org.apache.catalina.LifecycleException: Failed to start component [StandardEngine[Tomcat].StandardHost[localhost].StandardContext[/user-web]]
 Caused by: org.apache.catalina.LifecycleException: Failed to start component [StandardEngine[Tomcat].StandardHost[localhost].StandardContext[/user-web]]
 Caused by: java.lang.IllegalArgumentException: addChild:  Child name 'default' is not unique
-servlet åå­—ä¸èƒ½ä¸ºdefaultï¼Œå¦åˆ™æŠ¥é”™
+servlet Ãû×Ö²»ÄÜÎªdefault£¬·ñÔò±¨´í
 -->
     <servlet>
         <servlet-name>myDefaultServlet</servlet-name>
@@ -74,6 +74,18 @@ servlet åå­—ä¸èƒ½ä¸ºdefaultï¼Œå¦åˆ™æŠ¥é”™
 <!--    </servlet-mapping>-->
 
     <servlet>
+        <servlet-name>AsyncServlet</servlet-name>
+        <servlet-class>org.geektimes.projects.user.web.servlet.AsyncServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+        <async-supported>true</async-supported>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AsyncServlet</servlet-name>
+        <url-pattern>/async.servlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>FrontControllerServlet</servlet-name>
         <servlet-class>org.geektimes.web.mvc.FrontControllerServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
@@ -84,22 +96,36 @@ servlet åå­—ä¸èƒ½ä¸ºdefaultï¼Œå¦åˆ™æŠ¥é”™
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+<!--    <filter>-->
+<!--        <filter-name>HttpSessionFilter</filter-name>-->
+<!--        <filter-class>org.geektimes.projects.user.web.filter.HttpSessionFilter</filter-class>-->
+<!--        <init-param>-->
+            <!-- Filter ÅäÖÃ = FilterConfig -->
+<!--            <param-name>javax.cache.CacheManager.uri</param-name>-->
+<!--            <param-value>redis://127.0.0.1:6379/</param-value>-->
+<!--        </init-param>-->
+<!--    </filter>-->
+
     <filter>
-        <filter-name>HttpSessionFilter</filter-name>
-        <filter-class>org.geektimes.projects.user.web.filter.HttpSessionFilter</filter-class>
+        <filter-name>DistributedCacheSessionFilter</filter-name>
+        <filter-class>org.geektimes.session.servlet.http.DistributedHttpSessionFilter</filter-class>
         <init-param>
-            <!-- Filter ï¿½ï¿½ï¿½ï¿½ = FilterConfig -->
             <param-name>javax.cache.CacheManager.uri</param-name>
             <param-value>redis://127.0.0.1:6379/</param-value>
         </init-param>
     </filter>
+
+    <filter-mapping>
+        <filter-name>DistributedCacheSessionFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <filter>
         <filter-name>CharsetEncodingFilter</filter-name>
         <!--<filter-class>org.geektimes.projects.common.filter.CharsetEncodingFilter</filter-class>-->
         <filter-class>org.geektimes.projects.user.web.filter.CharsetEncodingFilter</filter-class>
         <init-param>
-            <!-- Filter é…ç½® = FilterConfig -->
+            <!-- Filter ÅäÖÃ = FilterConfig -->
             <param-name>encoding</param-name>
             <param-value>UTF-8</param-value>
         </init-param>
@@ -171,11 +197,23 @@ servlet åå­—ä¸èƒ½ä¸ºdefaultï¼Œå¦åˆ™æŠ¥é”™
 
     <!--    <resource-ref>-->
     <!--        <description>DB Connection</description>-->
+    <!--        &lt;!&ndash; JNDI javax.naming.Name &ndash;&gt;-->
     <!--        <res-ref-name>jdbc/UserPlatformDB</res-ref-name>-->
     <!--        <res-type>javax.sql.DataSource</res-type>-->
     <!--        <res-auth>Container</res-auth>-->
     <!--    </resource-ref>-->
 
+    <!--    <resource-env-ref>-->
+    <!--        <description>-->
+    <!--            Object factory for DBConnectionManager instances.-->
+    <!--        </description>-->
+    <!--        <resource-env-ref-name>-->
+    <!--            bean/DBConnectionManager-->
+    <!--        </resource-env-ref-name>-->
+    <!--        <resource-env-ref-type>-->
+    <!--            org.geektimes.projects.user.sql.DBConnectionManager-->
+    <!--        </resource-env-ref-type>-->
+    <!--    </resource-env-ref>-->
 
     <!-- Define a Security Constraint on this Application -->
     <security-constraint>
