@@ -53,7 +53,7 @@ public @interface EnableMyBatis {
      *
      * @return
      */
-    String configLocation();
+    String configLocation() default "";
 
     /**
      * @return the location of {@link Mapper}
@@ -62,5 +62,9 @@ public @interface EnableMyBatis {
     String[] mapperLocations() default {};
 
     String environment() default "SqlSessionFactoryBean";
+
+    String typeHandlersPackage() default "";
+
+    String typeAliasesPackage() default "";
 
 }
