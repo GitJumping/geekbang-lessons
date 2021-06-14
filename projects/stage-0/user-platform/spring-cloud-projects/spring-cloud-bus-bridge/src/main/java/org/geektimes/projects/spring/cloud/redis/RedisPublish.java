@@ -1,5 +1,7 @@
 package org.geektimes.projects.spring.cloud.redis;
 
+import redis.clients.jedis.Jedis;
+
 public class RedisPublish {
     public static void main(String[] args) {
         System.out.println("发布者 ");

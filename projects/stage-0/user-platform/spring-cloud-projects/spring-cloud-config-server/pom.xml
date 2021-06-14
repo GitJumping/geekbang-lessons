@@ -32,6 +32,17 @@
             <artifactId>spring-cloud-config-server</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.geekbang.projects</groupId>
+            <artifactId>spring-cloud-bus-bridge</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-bus</artifactId>
+        </dependency>
+
+
     </dependencies>
 
 </project>

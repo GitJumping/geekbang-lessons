@@ -17,3 +17,11 @@ eureka:
   client:
     service-url:
       defaultZone: 'http://127.0.0.1:12345/eureka'
+
+# bus 相关配置
+bus:
+  id: spring-cloud-config-service
+# redis 配置
+redis:
+  host: 127.0.0.1
+  port: 6379
