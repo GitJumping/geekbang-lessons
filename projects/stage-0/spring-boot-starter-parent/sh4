@@ -1,0 +1,20 @@
+cp Dockerfile-4 Dockerfile
+docker build -t spring-boot-starter-parent .
+# docker run -p 9000:9000 -e JAVA_OPTS=Dserver.port=9000 spring-boot-starter-parent
+docker run --name web-mvc -d -it -p 8080:8080 spring-boot-starter-parent
+# docker run --rm -p 8080:8080 -d spring-boot-starter-parent /bin/sh
+
+# docker logs $container_id
+
+# tar -czvf ***.tar.gz
+# tar -czvf target/spring-graalvm-native-build.tar.gz target/spring-graalvm-native-build
+# cat target/spring-graalvm-native-build.tar.gz | docker import - my-image
+
+##-o：指定保存的镜像的名字；rocketmq.tar：保存到本地的镜像名称；rocketmq：镜像名字，通过"docker images"查看
+# docker save -o my-image-local my-image
+# docker load --input my-image-local
+
+# docker run --rm -p 8080:8080 -d my-image -e MYSQL_ROOT_PASSWORD=123456  -d -p 33062:3306 clj_mysql:5.6.28 /entrypoint.sh mysqld
+
+##-f：表示强制删除镜像；image_id：镜像id
+# docker rmi -f 09a3128957ec 

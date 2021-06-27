@@ -1,0 +1,69 @@
+# 引入基础镜像
+FROM ghcr.io/graalvm/graalvm-ce:latest
+FROM ubuntu:latest
+
+VOLUME /tmp
+ARG APP=/tmp/www/test_native_app
+
+# RUN mkdir -p ${APP}/spring_native
+# COPY ./* ${APP}/spring_native
+
+# 在ubuntu
+# RUN apt-get update && apt-get install -y wget unzip
+# RUN apt-get install build-essential libz-dev zlib1g-dev
+# RUN apt-get install libz-dev
+# RUN apt-get install build-essential
+
+# RUN APP=/var/www/test_native_app
+RUN rm -rf ${APP}
+# RUN rm /opt/graalvm /opt/maven
+
+RUN mkdir -p ${APP}
+RUN cd ${APP}
+# https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-21.1.0/graalvm-ce-java11-linux-amd64-21.1.0.tar.gz
+RUN mkdir -p ${APP}/jdk
+RUN cd ${APP}/jdk
+# RUN wget https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-21.1.0/graalvm-ce-java11-linux-amd64-21.1.0.tar.gz -P ${APP}/jdk
+# RUN tar zxvf ${APP}/jdk/graalvm-ce-java11-linux-amd64-21.1.0.tar.gz -C ${APP}/jdk
+COPY ./graalvm-ce-java11-linux-amd64-21.1.0.tar.gz ./graalvm-ce-java11-linux-amd64-21.1.0.tar.gz
+RUN tar zxvf ./graalvm-ce-java11-linux-amd64-21.1.0.tar.gz -C ${APP}/jdk
+RUN ln -s ${APP}/jdk/graalvm-ce-java11-21.1.0 /opt/graalvm
+
+RUN mkdir -p ${APP}/maven
+# RUN wget --no-check-certificate https://archive.apache.org/dist/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz -P /tmp/maven
+# RUN tar zxvf /tmp/maven/apache-maven-3.6.1-bin.tar.gz -C ${APP}/maven
+COPY ./apache-maven-3.6.1-bin.tar.gz ./apache-maven-3.6.1-bin.tar.gz
+RUN tar zxvf ./apache-maven-3.6.1-bin.tar.gz -C ${APP}/maven
+RUN ln -s ${APP}/maven/apache-maven-3.6.1 /opt/maven
+
+ENV JAVA_HOME=/opt/graalvm
+ENV M2_HOME=/opt/maven
+ENV MAVEN_HOME=/opt/maven
+ENV PATH=${M2_HOME}/bin:${PATH}
+ENV PATH=${JAVA_HOME}/bin:${PATH}
+
+# RUN mkdir -p ${APP}/spring_native
+# RUN cd ${APP}/spring_native
+COPY ./* ./
+ENV PATH=./mvnw:${PATH}
+
+RUN mvn -Pnative -DskipTests package
+# RUN mvnw spring-boot:build-image
+
+# COPY ./pom.xml ./pom.xml
+# COPY src ./src/
+
+# ENV MAVEN_OPTS='-Xmx6g'
+# RUN mvn -Pnative -DskipTests package
+
+# ${cur_dir}/projects/stage-0/spring-boot-starter-parent/target
+# 添加 spring-native 已经编译好的执行文件
+# ADD target/spring-graalvm-native-build target/web-mvc 
+
+# 修改执行文件的执行权限
+# RUN chmod a+x target/web-mvc
+
+# 暴露端口
+# EXPOSE 8080
+
+# CMD target/web-mvc 
