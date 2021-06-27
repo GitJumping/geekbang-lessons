@@ -98,7 +98,7 @@ projects/stage-0/user-platform/spring-cloud-projects/spring-cloud-config-client/
 
   ## 第三种方式-success
 
-  执行 sh5 脚本即可
+  执行 [sh5](https://github.com/GitJumping/geekbang-lessons/blob/soa/projects/stage-0/spring-boot-starter-parent/sh5) 脚本即可
 
 ```
 # 加内存
@@ -153,10 +153,6 @@ collect2: error: ld returned 1 exit status
 	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
 Error: Image build request failed with exit status 1
 ```
-
-
-
-
 
 
 
