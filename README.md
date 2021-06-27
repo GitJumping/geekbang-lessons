@@ -55,5 +55,33 @@ projects/stage-0/user-platform/spring-cloud-projects/spring-cloud-config-client/
 
 - 在maven编译输入目录target下，找到编译好的二进制文件
 - 执行 ./spring-graalvm-native-build ，启动成功
-- 在浏览器访问http://127.0.0.1:8080/，看到访问提示
+- 在浏览器访问http://127.0.0.1:8080/，  看到访问提示
+
+
+
+# Week16 Homework
+
+- 命令需要在下述目录执行
+
+  ```shell
+  # ${cur_dir}/projects/stage-0/spring-boot-starter-parent/target
+  ```
+
+- 安装Docker环境
+
+- 编译native的可执行文件
+
+- Dockerfile
+
+  见 Dockerfile-3 文件
+
+- 构建docker image && 启动镜像
+
+  见 sh3 脚本
+
+- 最后无法启动，需要在linux下编译的二进制文件才行
+
+  ```shell
+  /bin/sh: target/web-mvc: cannot execute binary file: Exec format error
+  ```
 

@@ -1,0 +1,3 @@
+cp Dockerfile-2 Dockerfile
+docker build -t spring-boot-starter-parent .
+docker run -p 9000:9000 -e JAVA_OPTS=Dserver.port=9000 spring-boot-starter-parent

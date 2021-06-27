@@ -1,0 +1,5 @@
+# run in file ./spring-boot-starter-parent
+cp Dockerfile-1 Dockerfile
+docker build --build-arg JAR_FILE=target/*.jar -t spring-boot-starter-parent .
+# docker build --build-arg JAR_FILE=./*.jar -t target .
+docker run -p 8080:8080 spring-boot-starter-parent

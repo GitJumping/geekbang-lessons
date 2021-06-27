@@ -1,0 +1,13 @@
+# 接下来运行的命令
+
+FROM mcr.microsoft.com/openjdk/jdk:11-ubuntu 
+
+VOLUME /tmp 
+
+ARG JAR_FILE=target/*.jar 
+
+COPY ${JAR_FILE} app.jar 
+
+# ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar -cp  /app.jar", "org.springframework.boot.springbootstarterparent.SpringBootStarterParentApplication"]
+
+ENTRYPOINT ["sh", "-c", "java -cp /app.jar org.springframework.boot.springbootstarterparent.SpringBootStarterParentApplication"]
