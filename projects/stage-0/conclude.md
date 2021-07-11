@@ -207,7 +207,43 @@ JMX Remote API
 
 
 # Maven项目管理
+## artifact 发布
+## Profiles
 
 
 
 
+
+
+
+# 持续集成
+## 代码托管
+SVN
+Git
+项目 Rebase
+开发：分支开发
+CodeReview
+
+## 云效平台
+代码编辑器
+代码管理
+Code Review
+
+## 单元测试
+测试覆盖度
+
+## 工具
+Junit
+TestNG
+Mock
+
+## 测试驱动开发
+
+## 持续集成工具
+流水线
+Pipeline
+自动化
+TravisCI
+CircleCI
+
+## Jenkins的使用
