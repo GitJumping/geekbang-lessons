@@ -246,4 +246,380 @@ Pipeline
 TravisCI
 CircleCI
 
+Jenkins
+
+Gtilab CI/CD
+
+Github Build and Test
+
 ## Jenkins的使用
+
+- 多种安装方式
+
+  > ```java
+  > java -jar jenkins.war
+  > ```
+
+- 多种基础功能
+
+
+
+
+
+
+
+
+
+
+
+
+
+# *九：*服务调用
+
+## RPC（通信协议）
+
+- 消息（Message）
+- 存根（存根）
+
+> Servlet请求与线程映射关系：一对一
+
+
+
+## REST规范
+
+### 架构属性
+
+性能
+
+可伸缩性
+
+统一接口简化性
+
+组件可修改性
+
+etc...
+
+### 架构约束
+
+C/S架构
+
+无状态
+
+可缓存
+
+分层系统
+
+etc...
+
+### REST请求基本步骤
+
+1. 构建 URI - 请求资源
+
+2. 确定请求方法 - GET、POST
+
+3. 设置请求头和参数 - Headers、Parameters
+
+4. 设置请求主题（可选） - Body
+
+5. URI -> 设置到请求
+
+6. 执行请求（发送到 Server 服务器）
+
+7. 处理响应
+
+
+
+## JAX-RS规范
+
+### 应用
+
+Servlet Container
+
+Standalone
+
+### 处理步骤
+
+同REST请求步骤
+
+- 服务端
+- 客户端
+
+### API
+
+Application
+
+RuntimeDelegate
+
+UriBuilder
+
+
+
+
+
+
+
+
+
+
+
+
+
+# *十：*异步服务
+
+## 基础知识
+
+RPC特定消息模型
+
+面向消息中间件的消息模型
+
+## JMS
+
+javax.jms.ConnectionFactory
+
+javax.jms.Connection
+
+javax.jms.Session
+
+javax.jms.MessageProducer
+
+javax.jms.MessageConsumer
+
+#### JMS元素 
+
+#### JMS消息
+
+#### JMS消息头字段
+
+#### JMS消息主题
+
+#### JMS消息确认
+
+#### JMS消息模型
+
+
+
+## MicroProfile Reactive Messaging
+
+- 架构
+- Channel
+- Message
+
+## Servlet异步
+
+### Reactive Streams
+
+#### Java 9 Flow API
+
+#### Spring Reactor
+
+#### Reactive.x
+
+
+
+### Reactive Stack
+
+#### Vert.x
+
+#### Srping Reactive Stack
+
+#### Spring Cloud Stream
+
+
+
+### Java Messaging Stack
+
+#### Spring JMS
+
+#### Spring AMQP
+
+
+
+
+
+
+
+
+
+
+
+
+
+#  *十一：*应用容器安全
+
+## Web安全
+
+### CSRF
+
+-  CSRF Token
+
+- CSRF Token仓库
+- CSRF 请求校验匹配器
+
+#### Tomcat CSRF实现
+
+http://tomcat.apache.org/tomcat-7.0-doc/config/filter.html#CSRF_Prevention_Filter
+
+### XSS
+
+#### Tomcat Http头安全实现
+
+## JNDI相关
+
+创建Context
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# *十二：*应用容器高可用
+
+## 缓存
+
+#### 缓存的目标
+
+#### 缓存类型
+
+- 集中式缓存
+- 分片式缓存
+
+## Java缓存
+
+- JVM缓存
+- 分布式缓存
+
+#### Java缓存API
+
+- javax.cache.configuration.CacheEnt ryListenerConfiguration
+- javax.cache.event.CacheEntryEvent Filter
+- javax.cache.spi.CachingProvider
+- javax.cache.CacheManager
+- javax.cache.Cache
+- javax.cache.Cache.Entry
+- javax.cache.expiry.ExpiryPolicy
+
+#### 缓存存储
+
+- 值存储
+- 引用存储
+
+#### Cache与Map的类似点
+
+#### Cache与Map的区别点
+
+## Java序列化
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# *十三：*Spring基础架构重构
+
+## Spring Web MVC
+
+#### Web MVC 核心组件
+
+##### DispatcherServlet
+
+##### HandlerMapping
+
+##### HandlerAdapter
+
+##### HandlerExecutionChain
+
+##### HandlerInterceptor
+
+##### ModelAndView
+
+##### RequestAttributes 
+
+##### WebMvcConfigurer
+
+##### DelegatingWebMvcConfiguration
+
+##### DefaultServletHttpRequest Handler
+
+etc...
+
+#### Web MVC处理器管理
+
+#### Web MVC页面渲染
+
+##### 模板引擎
+
+- JSP
+- Thymeleaf
+- Freemarker
+- Velocity
+
+##### 模板设计模式
+
+#### Web MVC异常处理
+
+#### Web MVC注解驱动
+
+#### Web MVC自动装配
+
+#### Web MVC REST支持
+
+#### REST服务端
+
+##### HTTP方法
+
+##### URI
+
+#### 内容协商
+
+##### MediaType(主类型/子类型)
+
+##### 序列化和反序列化
+
+## Servelt 与 JSP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
